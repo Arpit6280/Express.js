@@ -1,25 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/add-product", (req, res, next) => {
-  res.send(
-    "<form action ='/product' method='POST'><input type='text' placeholder='Product Name' name='title' /> <input type='text' placeholder='Quantity' name='size' /> <button type='submit'>Add Product</button> </form> "
-  );
-});
+app.use("/admin", adminRoutes);
 
-app.post("/product", (req, res) => {
-  console.log(req.body); // undefined w/o bodyParser package
-  let { title, size } = req.body;
-  console.log(title, size);
-  res.redirect("/");
-});
+app.use(shopRoutes);
 
-app.get("/", (req, res, next) => {
-  res.send("Hii From Express");
+app.use((req, res, next) => {
+  res.status(404).send("<h1>Page Not Found</h1>");
 });
 
 app.listen(3000);
