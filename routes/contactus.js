@@ -3,12 +3,10 @@ const path = require("path");
 
 const router = express.Router();
 
-router.get("/contactus", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "views", "contactus.html"));
-});
+const contact = require("../controllers/contact");
 
-router.post("/success", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "views", "success.html"));
-});
+router.get("/contactus", contact.getContact);
+
+router.post("/success", contact.postSuccess);
 
 module.exports = router;

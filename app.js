@@ -5,6 +5,10 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const contactRouter = require("./routes/contactus");
 
+//404 page controller
+
+const page404 = require("./controllers/404page");
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,9 +20,6 @@ app.use(shopRoutes);
 
 app.use(contactRouter);
 
-app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
-  // res.status(404).send("<h1>Page Not Found</h1>");
-});
+app.use(page404.page404);
 
 app.listen(3000);
